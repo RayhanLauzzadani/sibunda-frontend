@@ -96,8 +96,7 @@ class SibImages {
             ? defaultImg()
             : defaultError(text: "Svg img Load Error"),
       );
-    } else if (fileName.endsWith(".png")) {
-      // Added condition for PNG
+    } else {
       return Image.file(
         file,
         width: width,
@@ -105,8 +104,6 @@ class SibImages {
         fit: usedFit,
         errorBuilder: !showError ? defImgBuilder() : defImgErrorBuilder(),
       );
-    } else {
-      return defaultError(text: "Unsupported image format");
     }
   }
 
