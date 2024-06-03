@@ -18,13 +18,12 @@ class NumberPicker extends StatefulWidget {
 
   @override
   State createState() => NumberPickerState(
-    onNumberChange: onNumberChange,
-    init: init,
-    min: min,
-    max: max,
-  );
+        onNumberChange: onNumberChange,
+        init: init,
+        min: min,
+        max: max,
+      );
 }
-
 
 class NumberPickerState extends State<NumberPicker> {
   final void Function(int)? onNumberChange;
@@ -42,13 +41,12 @@ class NumberPickerState extends State<NumberPicker> {
 
   @override
   void initState() {
-    if(min > max) {
+    if (min > max) {
       throw "Can't have `max` ($max) that is greater than `min` ($min)";
     }
     _number = min <= init && init <= max ? init : min;
     super.initState();
   }
-
 
   @override
   void setState(VoidCallback fn) {
@@ -90,7 +88,7 @@ class NumberPickerState extends State<NumberPicker> {
 
   bool _changeNumber(int change) {
     final changedNumber = _number + change;
-    if(changedNumber < min || changedNumber > max) {
+    if (changedNumber < min || changedNumber > max) {
       return false;
     } else {
       setState(() => _number = changedNumber);

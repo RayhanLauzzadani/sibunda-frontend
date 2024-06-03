@@ -1,4 +1,3 @@
-
 import 'package:common/arch/ui/widget/_basic_widget.dart';
 import 'package:common/config/_config.dart';
 import 'package:common/res/string/_string.dart';
@@ -13,13 +12,13 @@ import 'package:home/ui/form_get_started/children_count_vm.dart';
 
 class ChildrenCountPage extends StatelessWidget {
   final PageController? pageControll;
-  ChildrenCountPage({ this.pageControll });
+  ChildrenCountPage({this.pageControll});
 
   @override
   Widget build(BuildContext context) {
     final vm = ViewModelProvider.of<ChildrenCountVm>(context);
     vm.onSubmit.observeForever((success) {
-      if(success == true) {
+      if (success == true) {
         _moveToNext(context, vm);
       } else {
         showSnackBar(context, Strings.error_occurred_when_saving_data);
@@ -35,9 +34,14 @@ class ChildrenCountPage extends StatelessWidget {
           Strings.mother_children_data,
           style: SibTextStyles.header1,
         ), //TODO hardcode string
-        SibImages.get("ilstr_mother_carry_baby.png", package: "common",) //TODO
+        SibImages.get(
+          "ilstr_mother_carry_baby.png",
+          package: "common",
+        ) //TODO
             .withMargin(EdgeInsets.symmetric(horizontal: 50).copyWith(top: 70)),
-        Text("Berapa bayi (0-7 tahun) yang Bunda punya?",),
+        Text(
+          "Berapa bayi (0-7 tahun) yang Bunda punya?",
+        ),
         Container(
           child: NumberPicker(
             init: vm.childrenCount.value ?? 0,
@@ -67,9 +71,10 @@ class ChildrenCountPage extends StatelessWidget {
           liveData: vm.canProceed,
           builder: (ctx, canProceed) => FloatingActionButton(
             child: Icon(Icons.arrow_forward_rounded),
-            backgroundColor: canProceed == true ? Manifest.theme.colorPrimary : grey,
+            backgroundColor:
+                canProceed == true ? Manifest.theme.colorPrimary : grey,
             onPressed: () {
-              if(canProceed == true) {
+              if (canProceed == true) {
                 vm.proceed();
               } else {
                 showSnackBar(ctx, Strings.there_still_invalid_fields);
@@ -83,15 +88,15 @@ class ChildrenCountPage extends StatelessWidget {
 
   void _moveToNext(BuildContext context, ChildrenCountVm vm) {
     final count = vm.childrenCount.value;
-    if(pageControll != null) {
+    if (pageControll != null) {
       final add = count != null && count > 0 ? 1 : 2;
       pageControll!.animateToPage(
-        pageControll!.page!.toInt() +add,
+        pageControll!.page!.toInt() + add,
         duration: Duration(milliseconds: 500),
         curve: Curves.easeOut,
       );
     } else {
-      if(count != null && count > 0) {
+      if (count != null && count > 0) {
         HomeRoutes.childFormPage.go(
           context: context,
           childCount: vm.childrenCount,

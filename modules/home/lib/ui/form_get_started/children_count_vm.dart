@@ -11,20 +11,18 @@ class ChildrenCountVm extends AsyncVm {
   ChildrenCountVm({
     //required SaveLastChildBirthDate saveLastChildBirthDate,
     required SaveChildrenCount saveChildrenCount,
-  }):
-    //_saveLastChildBirthDate = saveLastChildBirthDate,
-    _saveChildrenCount = saveChildrenCount {
+  }) :
+        //_saveLastChildBirthDate = saveLastChildBirthDate,
+        _saveChildrenCount = saveChildrenCount {
     _init();
   }
 
   final SaveChildrenCount _saveChildrenCount;
 
-
   final MutableLiveData<bool> _canProceed = MutableLiveData();
   final MutableLiveData<bool> _onSubmit = MutableLiveData();
   //final MutableLiveData<DateTime> lastChildBirthDate = MutableLiveData();
   final MutableLiveData<int> childrenCount = MutableLiveData();
-
 
   LiveData<bool> get canProceed => _canProceed;
   LiveData<bool> get onSubmit => _onSubmit;
@@ -44,7 +42,8 @@ class ChildrenCountVm extends AsyncVm {
     });
  */
     childrenCount.observe(this, (count) {
-      _canProceed.value = count != null; //&& lastChildBirthDate.value != null;
+      _canProceed.value =
+          count != null && count >= 1; //&& lastChildBirthDate.value != null;
     });
   }
 
@@ -52,7 +51,7 @@ class ChildrenCountVm extends AsyncVm {
     startJob(proceedKey, (isActive) async {
       final count = childrenCount.value;
       //final lastChildBirth = lastChildBirthDate.value;
-      if(count == null) {
+      if (count == null) {
         throw "`count` == null";
       }
       /*
@@ -64,7 +63,7 @@ class ChildrenCountVm extends AsyncVm {
       final res1 = await _saveChildrenCount(count);
       //final res2 = await _saveLastChildBirthDate(lastChildBirth);
 
-      if(res1 is Success<bool> /*&& res2 is Success<bool>*/) {
+      if (res1 is Success<bool> /*&& res2 is Success<bool>*/) {
         final data = res1.data; //&& res2.data;
         _onSubmit.value = data;
       } else {
