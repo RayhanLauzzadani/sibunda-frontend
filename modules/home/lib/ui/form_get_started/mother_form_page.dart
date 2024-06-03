@@ -1,4 +1,3 @@
-
 import 'package:common/arch/di/db_di.dart';
 import 'package:common/arch/domain/dummy_data.dart';
 import 'package:common/arch/domain/model/img_data.dart';
@@ -36,11 +35,14 @@ class MotherFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final canSkip = getArgs<bool>(context, Const.KEY_CAN_SKIP) != false;
-    final credential = getArgs<ProfileCredential>(context, Const.KEY_CREDENTIAL);
+    final credential =
+        getArgs<ProfileCredential>(context, Const.KEY_CREDENTIAL);
     final isEdit = getArgs<bool>(context, Const.KEY_IS_EDIT) == true;
 
     final vm = ViewModelProvider.of<MotherFormVm>(context)
-      ..getMotherData(credential: credential,);
+      ..getMotherData(
+        credential: credential,
+      );
 
     return Column(
       children: [
@@ -52,27 +54,34 @@ class MotherFormPage extends StatelessWidget {
           liveData: vm.imgProfile,
           builder: (ctx, img) => ImgPick(
             pic: img,
-            onImgPick: (file) => vm.imgProfile.value = file != null
-                ? ImgData.fromXFile(file) : null,
+            onImgPick: (file) => vm.imgProfile.value =
+                file != null ? ImgData.fromXFile(file) : null,
           ),
-        ).withMargin(EdgeInsets.only(top: 10, bottom: 10,)),
-        if(canSkip) Padding(
-          padding: EdgeInsets.only(top: 10, bottom: 20,),
-          child: TxtLink(
-            Strings.skip,
-            onTap: () {
-              vm.isDataPresent.value = false;
-              _toNextPage(context);
-            },
-          ),
-        ),
+        ).withMargin(EdgeInsets.only(
+          top: 10,
+          bottom: 10,
+        )),
+        // if (canSkip)
+        //   Padding(
+        //     padding: EdgeInsets.only(
+        //       top: 10,
+        //       bottom: 20,
+        //     ),
+        //     child: TxtLink(
+        //       Strings.skip,
+        //       onTap: () {
+        //         vm.isDataPresent.value = false;
+        //         _toNextPage(context);
+        //       },
+        //     ),
+        //   ),
         FormVmGroupObserver<MotherFormVm>(
           vm: vm,
           showHeader: false,
           interceptor: interceptor,
           pickerIconBuilder: (group, key, data) {
-            if(group == 0) {
-              switch(key) {
+            if (group == 0) {
+              switch (key) {
                 case Const.KEY_BIRTH_PLACE:
                   return CityPickerIcon(
                     onItemSelected: (city) async {
@@ -89,21 +98,32 @@ class MotherFormPage extends StatelessWidget {
             }
           },
           onSubmit: (ctx, success) {
-            if(success) {
+            if (success) {
               _toNextPage(ctx);
             } else {
-              showSnackBar(context, "Gagal",);
+              showSnackBar(
+                context,
+                "Gagal",
+              );
             }
           },
-          submitBtnMargin: EdgeInsets.only(bottom: 15,),
-          submitBtnBuilder: (ctx, canProceed) => !isEdit ? FloatingActionButton(
-            child: Icon(Icons.arrow_forward_rounded,),
-            backgroundColor: canProceed == true ? pink_300 : grey,
-            onPressed: null, //canProceed == true ? null : () => showSnackBar(context, "Ada yg blum valid"),
-          ) : TxtBtn(
-            Strings.update_data,
-            color: canProceed == true ? Manifest.theme.colorPrimary : grey,
+          submitBtnMargin: EdgeInsets.only(
+            bottom: 15,
           ),
+          submitBtnBuilder: (ctx, canProceed) => !isEdit
+              ? FloatingActionButton(
+                  child: Icon(
+                    Icons.arrow_forward_rounded,
+                  ),
+                  backgroundColor: canProceed == true ? pink_300 : grey,
+                  onPressed:
+                      null, //canProceed == true ? null : () => showSnackBar(context, "Ada yg blum valid"),
+                )
+              : TxtBtn(
+                  Strings.update_data,
+                  color:
+                      canProceed == true ? Manifest.theme.colorPrimary : grey,
+                ),
         ),
 /*
         ImgPick(imgUrl: "ic_profile.png")
@@ -114,9 +134,9 @@ class MotherFormPage extends StatelessWidget {
   }
 
   void _toNextPage(BuildContext context) {
-    if(pageControll != null) {
+    if (pageControll != null) {
       pageControll!.animateToPage(
-        pageControll!.page!.toInt() +1,
+        pageControll!.page!.toInt() + 1,
         duration: Duration(milliseconds: 500),
         curve: Curves.easeOut,
       );
