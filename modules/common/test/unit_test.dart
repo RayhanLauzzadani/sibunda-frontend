@@ -1,4 +1,3 @@
-
 import 'package:common/util/_util.dart';
 import 'package:common/util/auth.dart';
 import 'package:common/value/const_values.dart';
@@ -22,7 +21,9 @@ void main() async {
 
   final dio = Dio();
 
-  final resp = await dio.get("https://api.github.com/users/alfalifr/repos",);
+  final resp = await dio.get(
+    "https://api.github.com/users/alfalifr/repos",
+  );
 
   final resp2 = SimpleNetResponse.from(resp);
 
@@ -34,13 +35,14 @@ void main() async {
   final secret = "5xnEHfLiRiyyRGrez97iEmqzTB4h48IWr5DnHEuO";
   final clientId = "2";
   final fcmToken = "ini token";
-  //remote_host=https://sibunda.amirmb.com
+  //remote_host=https://sibunda3.digitalise.biz.id
 
   await signUpTest(name, email, pswd);
   final token = await login(email, pswd, secret, clientId, fcmToken);
   await logout(token);
  */
 }
+
 ///*
 @RestApi(baseUrl: "https://api.github.com")
 abstract class CobApi {
@@ -90,23 +92,25 @@ class Repo extends Equatable {
   List<Object?> get props => [full_name, id, html_url, owner];
 }
 
-
 Future<void> signUpTest(String name, String email, String pswd) async {
   print("Mulai signUpTest()");
   final resp = await Auth.signUp(name, email, pswd);
   print("resp= $resp");
-  assert (resp.statusCode == 200);
+  assert(resp.statusCode == 200);
   print("Selesai signUpTest()");
 }
 
 Future<String> login(
-  String email, String pswd,
-  String secret, String clientId, String fcmToken,
+  String email,
+  String pswd,
+  String secret,
+  String clientId,
+  String fcmToken,
 ) async {
   print("Mulai login()");
   final resp = await Auth.login(email, pswd, secret, clientId, fcmToken);
   print("resp= $resp");
-  assert (resp.statusCode == 200);
+  assert(resp.statusCode == 200);
   print("Selesai login()");
   return resp.data["data"][Const.KEY_ACCESS_TOKEN];
 }
@@ -115,6 +119,6 @@ Future<void> logout(String token) async {
   print("Mulai logout()");
   final resp = await Auth.logout(token);
   print("resp= $resp");
-  assert (resp.statusCode == 200);
+  assert(resp.statusCode == 200);
   print("Selesai logout()");
 }

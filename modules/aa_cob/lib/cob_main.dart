@@ -92,10 +92,12 @@ class MyApp extends StatelessWidget {
         body: Builder(
           builder: (ctx) {
             final url = "https://i.imgflip.com/qk533.jpg";
-            final svgUrl = "https://www.babycenter.com/ims/2019/04/8-weeks-fruit-fetus-size-01.svg";
+            final svgUrl =
+                "https://www.babycenter.com/ims/2019/04/8-weeks-fruit-fetus-size-01.svg";
             final img = ImgData(
+              src: ImgSrc.asset,
               link: svgUrl,
-              isLocal: false,
+              // isLocal: false,
             );
             prind("cob main img= $img");
             return SibImages.resolve(img);
@@ -223,7 +225,7 @@ class MyApp extends StatelessWidget {
       ),
 // */
 
-    //_FormPage(),
+      //_FormPage(),
       /*
       home: Scaffold(
         body: Column(
@@ -287,10 +289,16 @@ class _SplashPage extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            FlutterLogo(size: 70,),
-            SizedBox(height: 20,),
+            FlutterLogo(
+              size: 70,
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Text("Ini SPlash screen"),
-            SizedBox(height: 50,),
+            SizedBox(
+              height: 50,
+            ),
             CircularProgressIndicator(),
           ],
         ),
@@ -305,7 +313,10 @@ class _SplashPage extends StatelessWidget {
         final api = DataApi(await TestUtil.getDummySession());
         final resp = await api.getCity();
 
-        final ent = resp.map((e) => e.toEntityJson()).map((e) => CityEntity.fromJson(e)).toList(growable: false);
+        final ent = resp
+            .map((e) => e.toEntityJson())
+            .map((e) => CityEntity.fromJson(e))
+            .toList(growable: false);
         cityDao.insertAll(ent);
       },
     );
@@ -322,7 +333,7 @@ class _CityList extends StatelessWidget {
     return FutureBuilder<List<CityEntity>>(
       future: citiesFuture,
       builder: (ctx, snapshot) {
-        if(snapshot.hasData) {
+        if (snapshot.hasData) {
           final cities = snapshot.data;
           return ListView.builder(
             itemCount: cities?.length ?? 0,
@@ -339,19 +350,18 @@ class _CityList extends StatelessWidget {
 }
 
 class _FormPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: ViewModelProvider(
           creators: [
-                (ctx) => _Vm()..init(),
+            (ctx) => _Vm()..init(),
           ],
           child: FormVmGroupObserver<_Vm>(
             submitBtnBuilder: (ctx, canProceed) => TxtBtn(
               "Kirim",
-              color:  canProceed == true ? Manifest.theme.colorPrimary : grey,
+              color: canProceed == true ? Manifest.theme.colorPrimary : grey,
             ),
           ),
         ),
@@ -366,61 +376,77 @@ class _Vm extends FormVmGroup {
 
   @override
   Future<List<FormUiGroupData>> getFieldGroupList() async => [
-    FormUiGroupData(
-      header: "header",
-      data: [
-        FormUiTxt(key: "key1", question: "question 1", input: FieldInputMethod.pickDate),
-        FormUiTxt(key: "key1.1", question: "question 1.1", input: FieldInputMethod.pickDate, answer: "aha", isInputEnabled: false),
-        FormUiRadio(key: "key2", question: "question 2",
-          selectedAnswer: 0,
-          answerItems: [
-            "ya",
-            "tidak",
+        FormUiGroupData(
+          header: "header",
+          data: [
+            FormUiTxt(
+                key: "key1",
+                question: "question 1",
+                input: FieldInputMethod.pickDate),
+            FormUiTxt(
+                key: "key1.1",
+                question: "question 1.1",
+                input: FieldInputMethod.pickDate,
+                answer: "aha",
+                isInputEnabled: false),
+            FormUiRadio(
+              key: "key2",
+              question: "question 2",
+              selectedAnswer: 0,
+              answerItems: [
+                "ya",
+                "tidak",
+              ],
+            ),
+            FormUiRadio(
+              key: "key3",
+              question: "question 3",
+              isInputEnabled: false,
+              selectedAnswer: 1,
+              answerItems: [
+                "ya",
+                "tidak",
+              ],
+            ),
+            FormUiCheck(
+              key: "key4",
+              question: "question 4",
+              isInputEnabled: false,
+              selectedAnswers: {1, 2},
+              answerItems: [
+                "ya",
+                "tidak",
+                "ok",
+              ],
+            ),
+            FormUiCheck(
+              key: "key5",
+              question: "question 5",
+              answerItems: [
+                "ya",
+                "tidak",
+                "ok",
+              ],
+            ),
           ],
         ),
-        FormUiRadio(key: "key3", question: "question 3",
-          isInputEnabled: false,
-          selectedAnswer: 1,
-          answerItems: [
-            "ya",
-            "tidak",
-          ],
-        ),
-        FormUiCheck(key: "key4", question: "question 4",
-          isInputEnabled: false,
-          selectedAnswers: {1,2},
-          answerItems: [
-            "ya",
-            "tidak",
-            "ok",
-          ],
-        ),
-        FormUiCheck(key: "key5", question: "question 5",
-          answerItems: [
-            "ya",
-            "tidak",
-            "ok",
-          ],
-        ),
-      ],
-    ),
-  ];
+      ];
 
   @override
   List<LiveData> get liveDatas => [];
 
   @override
-  Future<bool> validateField(int groupPosition, String inputKey, response) async {
-    prind("validateField() response?.runtimeType = ${response?.runtimeType} resp = $response");
-    if(response is String) return response.isNotEmpty;
-    if(response is Set) return response.isNotEmpty;
+  Future<bool> validateField(
+      int groupPosition, String inputKey, response) async {
+    prind(
+        "validateField() response?.runtimeType = ${response?.runtimeType} resp = $response");
+    if (response is String) return response.isNotEmpty;
+    if (response is Set) return response.isNotEmpty;
     return response != null;
   }
-
 }
 
 class _Splash2 extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
@@ -443,7 +469,6 @@ class _Splash2 extends StatelessWidget {
 }
 
 class _Splash extends StatefulWidget {
-
   @override
   State createState() => _SplashState();
 }
@@ -453,29 +478,31 @@ class _SplashState extends State<_Splash> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.push(context, PageRouteBuilder(
-        transitionDuration: Duration(seconds: 2),
-        transitionsBuilder: (ctx, anim, secAnim, child) {
-          final start = Offset(0, -1);
-          final end = Offset.zero;
-          final tween = Tween(begin: start, end: end);
+      Navigator.push(
+          context,
+          PageRouteBuilder(
+            transitionDuration: Duration(seconds: 2),
+            transitionsBuilder: (ctx, anim, secAnim, child) {
+              final start = Offset(0, -1);
+              final end = Offset.zero;
+              final tween = Tween(begin: start, end: end);
 
-          final curve = Curves.bounceOut;
-          final ct = CurveTween(curve: curve);
-          final t = tween.chain(ct);
+              final curve = Curves.bounceOut;
+              final ct = CurveTween(curve: curve);
+              final t = tween.chain(ct);
 
-          final off = anim.drive(ct);
+              final off = anim.drive(ct);
 
-          return RotationTransition(
-            turns: anim.drive(ct),
-            child: child,
-          );
-        },
-        pageBuilder: (ctx, anim, secAnim) {
-          prind("to _NextPage");
-          return _NextPage();
-        },
-      ));
+              return RotationTransition(
+                turns: anim.drive(ct),
+                child: child,
+              );
+            },
+            pageBuilder: (ctx, anim, secAnim) {
+              prind("to _NextPage");
+              return _NextPage();
+            },
+          ));
     });
   }
 
@@ -488,7 +515,10 @@ class _SplashState extends State<_Splash> {
         height: double.infinity,
         color: Colors.green,
         child: Expanded(
-          child: Text("Ini Splash", textAlign: TextAlign.center,),
+          child: Text(
+            "Ini Splash",
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
@@ -496,7 +526,6 @@ class _SplashState extends State<_Splash> {
 }
 
 class _NextPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     prind("_NextPage");
@@ -506,7 +535,10 @@ class _NextPage extends StatelessWidget {
         height: double.infinity,
         color: Colors.blue,
         child: Expanded(
-          child: Text("Ini halaman slanjutnya", textAlign: TextAlign.center,),
+          child: Text(
+            "Ini halaman slanjutnya",
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

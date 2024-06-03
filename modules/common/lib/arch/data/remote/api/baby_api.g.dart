@@ -8,7 +8,7 @@ part of 'baby_api.dart';
 
 class _BabyApi implements BabyApi {
   _BabyApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://sibunda.amirmb.com/api/anaku';
+    baseUrl ??= 'https://sibunda3.digitalise.biz.id/api/anaku';
   }
 
   final Dio _dio;

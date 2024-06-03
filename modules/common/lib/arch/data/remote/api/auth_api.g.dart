@@ -8,7 +8,7 @@ part of 'auth_api.dart';
 
 class _AuthApi implements AuthApi {
   _AuthApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://sibunda.amirmb.com/api/auth';
+    baseUrl ??= 'https://sibunda3.digitalise.biz.id/api/auth';
   }
 
   final Dio _dio;

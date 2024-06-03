@@ -10,7 +10,7 @@ class Const {
   static const KEY_CTX = "context";
   static const KEY_ONLY_SINGLE_PAGE = "only_single_page";
 
-  static const REMOTE_HOST = "https://sibunda.amirmb.com";
+  static const REMOTE_HOST = "https://sibunda3.digitalise.biz.id";
   static const ENDPOINT_ROOT = "$REMOTE_HOST/api";
   static const ENDPOINT_AUTH = "$ENDPOINT_ROOT/auth";
   static const ENDPOINT_PREGNANCY = "$ENDPOINT_ROOT/kehamilanku";
@@ -22,7 +22,8 @@ class Const {
   static const CLIENT_SECRET = "5xnEHfLiRiyyRGrez97iEmqzTB4h48IWr5DnHEuO";
   static const CLIENT_ID = 2;
   static const DUMMY_FCM_TOKEN = "ini token";
-  static const FCM_WEB_PUSH_CERT = "BBw65v7mrdPsVwq8YRZWrDVtBkmG0hVyAt7B8zmeK1iFvMBDaSsDaydTiX0LEFMTgFYQTR1kYbOfcXIbZqRzKAA";
+  static const FCM_WEB_PUSH_CERT =
+      "BBw65v7mrdPsVwq8YRZWrDVtBkmG0hVyAt7B8zmeK1iFvMBDaSsDaydTiX0LEFMTgFYQTR1kYbOfcXIbZqRzKAA";
 
   static const GENDER_MALE = "M";
   static const GENDER_FEMALE = "F";
@@ -77,7 +78,8 @@ class Const {
 
   static const KEY_COHORT_REG = "nomor_register_kohort_ibu";
 
-  static const KEY_BABY_COHORT_REG = "no_kohort"; //"nomor_register_kohort_bayi";
+  static const KEY_BABY_COHORT_REG =
+      "no_kohort"; //"nomor_register_kohort_bayi";
   static const KEY_TODDLER_COHORT_REG = "nomor_register_kohort_balita";
   static const KEY_CHILD_ORDER = "anak_ke";
   static const KEY_GENDER = "kelamin";
@@ -152,7 +154,6 @@ class Const {
   static const KEY_YEAR_ID = "year_id";
 
   //static const KEY_q_imd = "q_imd";
-
 
   static const KEY_Q_IMD = "q_imd";
   static const KEY_Q_VIT_K1 = "q_vit_k1";

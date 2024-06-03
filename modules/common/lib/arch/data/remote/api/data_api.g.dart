@@ -8,7 +8,7 @@ part of 'data_api.dart';
 
 class _DataApi implements DataApi {
   _DataApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://sibunda.amirmb.com/api/data';
+    baseUrl ??= 'https://sibunda3.digitalise.biz.id/api/data';
   }
 
   final Dio _dio;

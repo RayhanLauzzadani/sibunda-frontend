@@ -8,7 +8,7 @@ part of 'covid_api.dart';
 
 class _CovidApi implements CovidApi {
   _CovidApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://sibunda.amirmb.com/api/covid';
+    baseUrl ??= 'https://sibunda3.digitalise.biz.id/api/covid';
   }
 
   final Dio _dio;

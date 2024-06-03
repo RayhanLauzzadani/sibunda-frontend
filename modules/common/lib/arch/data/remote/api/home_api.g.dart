@@ -8,7 +8,7 @@ part of 'home_api.dart';
 
 class _HomeApi implements HomeApi {
   _HomeApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://sibunda.amirmb.com/api/dashboard';
+    baseUrl ??= 'https://sibunda3.digitalise.biz.id/api/dashboard';
   }
 
   final Dio _dio;
