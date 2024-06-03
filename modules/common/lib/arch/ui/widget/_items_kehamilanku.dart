@@ -22,7 +22,6 @@ import 'overlay_widget.dart';
 final _cornerRadius = 10.0;
 final _paddingSmall = 10.0;
 
-
 class ItemMotherUnbornOverview extends StatelessWidget {
   final ImgData img;
   final int pregnancyAge; // in weeks
@@ -39,44 +38,50 @@ class ItemMotherUnbornOverview extends StatelessWidget {
   ItemMotherUnbornOverview.fromData({
     MotherPregnancyAgeOverview? data,
     //this.bornBaby,
-  }): img = data?.img ?? dummyImg,
-    pregnancyAge = data?.weekAge ?? -1,
-    pregnancyAgeRem = data?.daysRemaining ?? -1
-  ;
+  })  : img = data?.img ?? dummyImg,
+        pregnancyAge = data?.weekAge ?? -1,
+        pregnancyAgeRem = data?.daysRemaining ?? -1;
 
-  ItemMotherUnbornOverview.def():
-    img = dummyImg,
-    pregnancyAge = -1,
-    pregnancyAgeRem = -1
-    //bornBaby = null
+  ItemMotherUnbornOverview.def()
+      : img = dummyImg,
+        pregnancyAge = -1,
+        pregnancyAgeRem = -1
+  //bornBaby = null
   ;
 
   @override
   Widget build(BuildContext context) {
-    return ItemModuleHomeOverview(
-      image: SibImages.resolve(img),
-      upperText: RichText(
-        textAlign: TextAlign.start,
-        text: TextSpan(
-          style: SibTextStyles.size_0_bold_black,
-          children: [
-            TextSpan(text: "Bunda sekarang sudah masuk ke usia "),
-            TextSpan(text: "$pregnancyAge Minggu ", style: SibTextStyles.size_0_bold_colorPrimary),
-            TextSpan(text: "kehamilan ya"),
-          ],
-        ),
-      ),
-      lowerText: RichText(
-        textAlign: TextAlign.start,
-        text: TextSpan(
-          style: SibTextStyles.size_0_bold_black,
-          children: [
-            TextSpan(text: "$pregnancyAgeRem hari ", style: SibTextStyles.size_0_bold_colorPrimary),
-            TextSpan(text: "lagi menuju kelahiran ya Bun"),
-          ],
-        ),
-      ),
-    );
+    print(pregnancyAge);
+    return pregnancyAge == -1
+        ? defaultLoading()
+        : ItemModuleHomeOverview(
+            image: SibImages.resolve(img),
+            upperText: RichText(
+              textAlign: TextAlign.start,
+              text: TextSpan(
+                style: SibTextStyles.size_0_bold_black,
+                children: [
+                  TextSpan(text: "Bunda sekarang sudah masuk ke usia "),
+                  TextSpan(
+                      text: "$pregnancyAge Minggu ",
+                      style: SibTextStyles.size_0_bold_colorPrimary),
+                  TextSpan(text: "kehamilan ya"),
+                ],
+              ),
+            ),
+            lowerText: RichText(
+              textAlign: TextAlign.start,
+              text: TextSpan(
+                style: SibTextStyles.size_0_bold_black,
+                children: [
+                  TextSpan(
+                      text: "$pregnancyAgeRem hari ",
+                      style: SibTextStyles.size_0_bold_colorPrimary),
+                  TextSpan(text: "lagi menuju kelahiran ya Bun"),
+                ],
+              ),
+            ),
+          );
   }
 }
 
@@ -90,7 +95,7 @@ class ItemMotherBornOverview extends StatelessWidget {
     this.onActionClick,
     ImgData? img,
     //this.bornBaby,
-  }): img = img ?? imgPregnancyAgeOverview;
+  }) : img = img ?? imgPregnancyAgeOverview;
 
   @override
   Widget build(BuildContext context) {
@@ -147,17 +152,21 @@ class ItemMotherTrimester extends StatelessWidget {
     required this.pregnancyAgeEnd,
     this.onClick,
     Key? key,
-  }): super(key: key,);
+  }) : super(
+          key: key,
+        );
 
-  ItemMotherTrimester.fromData(MotherTrimester data, {
+  ItemMotherTrimester.fromData(
+    MotherTrimester data, {
     this.onClick,
     Key? key,
-  }):
-    img = data.img,
-    trimester = data.trimester,
-    pregnancyAgeStart = data.startWeek,
-    pregnancyAgeEnd = data.endWeek, super(key: key,)
-  ;
+  })  : img = data.img,
+        trimester = data.trimester,
+        pregnancyAgeStart = data.startWeek,
+        pregnancyAgeEnd = data.endWeek,
+        super(
+          key: key,
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +227,6 @@ class ItemMotherGraphMenu extends StatelessWidget {
 }
  */
 
-
 class ItemMotherRecomFood extends StatelessWidget {
   final ImgData img;
   final String foodName;
@@ -230,11 +238,10 @@ class ItemMotherRecomFood extends StatelessWidget {
     required this.desc,
   });
 
-  ItemMotherRecomFood.fromData(MotherFoodRecom data):
-    img = data.img ?? dummyImg,
-    foodName = data.food,
-    desc = data.desc
-  ;
+  ItemMotherRecomFood.fromData(MotherFoodRecom data)
+      : img = data.img ?? dummyImg,
+        foodName = data.food,
+        desc = data.desc;
 
   @override
   Widget build(BuildContext context) {
@@ -242,7 +249,10 @@ class ItemMotherRecomFood extends StatelessWidget {
     final parentMinHeight = 80.0;
 
     final imgChild = ConstrainedBox(
-      constraints: BoxConstraints(minHeight: parentMinHeight, maxWidth: 70,),
+      constraints: BoxConstraints(
+        minHeight: parentMinHeight,
+        maxWidth: 70,
+      ),
       child: Column(
         children: [
           Container(
@@ -273,11 +283,12 @@ class ItemMotherRecomFood extends StatelessWidget {
       ),
     );
 
-
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(10)),
       child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: parentMinHeight,),
+        constraints: BoxConstraints(
+          minHeight: parentMinHeight,
+        ),
         child: Container(
           color: Colors.white,
           child: Padding(
@@ -286,7 +297,11 @@ class ItemMotherRecomFood extends StatelessWidget {
               children: [
                 imgChild,
                 Container(
-                  constraints: BoxConstraints(minHeight: parentMinHeight, maxWidth: 2, minWidth: 2,),
+                  constraints: BoxConstraints(
+                    minHeight: parentMinHeight,
+                    maxWidth: 2,
+                    minWidth: 2,
+                  ),
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   color: Manifest.theme.colorPrimary,
                 ),
@@ -315,11 +330,11 @@ class ItemMotherBabySizeOverview extends StatelessWidget {
     this.babyWeight,
   });
 
-  ItemMotherBabySizeOverview.fromData(PregnancyBabySize data):
-    img = data.img ?? dummyImg,
-    sizeString = data.sizeString, //?? "<null>",
-    babyLen = data.babyLen, // ?? -1,
-    babyWeight = data.babyWeight // ?? -1
+  ItemMotherBabySizeOverview.fromData(PregnancyBabySize data)
+      : img = data.img ?? dummyImg,
+        sizeString = data.sizeString, //?? "<null>",
+        babyLen = data.babyLen, // ?? -1,
+        babyWeight = data.babyWeight // ?? -1
   ;
 
   @override
@@ -342,57 +357,79 @@ class ItemMotherBabySizeOverview extends StatelessWidget {
           style: SibTextStyles.size_0_bold_black,
           children: [
             TextSpan(text: "Selamat Bunda!\nSekarang si Kecil sudah sebesar "),
-            TextSpan(text: "$sizeString ", style: SibTextStyles.size_0_bold_colorPrimary),
+            TextSpan(
+                text: "$sizeString ",
+                style: SibTextStyles.size_0_bold_colorPrimary),
             TextSpan(text: "ya Bun"),
           ],
         ),
       ),
     );
 
-    final babyLenChild = babyLen != null ? RichText(
-      text: TextSpan(
-        style: SibTextStyles.size_min_2_black,
-        children: [
-          TextSpan(text: "Panjang Bayi : "),
-          TextSpan(text: "$babyLen inch", style: SibTextStyles.size_min_2_bold_colorPrimary),
-        ],
-      ),
-    ) : null;
+    final babyLenChild = babyLen != null
+        ? RichText(
+            text: TextSpan(
+              style: SibTextStyles.size_min_2_black,
+              children: [
+                TextSpan(text: "Panjang Bayi : "),
+                TextSpan(
+                    text: "$babyLen inch",
+                    style: SibTextStyles.size_min_2_bold_colorPrimary),
+              ],
+            ),
+          )
+        : null;
 
-    final babyWeightChild = babyWeight != null ? RichText(
-      text: TextSpan(
-        style: SibTextStyles.size_min_2_black,
-        children: [
-          TextSpan(text: "Berat Bayi : "),
-          TextSpan(text: "$babyWeight pounds", style: SibTextStyles.size_min_2_bold_colorPrimary),
-        ],
-      ),
-    ) : null;
+    final babyWeightChild = babyWeight != null
+        ? RichText(
+            text: TextSpan(
+              style: SibTextStyles.size_min_2_black,
+              children: [
+                TextSpan(text: "Berat Bayi : "),
+                TextSpan(
+                    text: "$babyWeight pounds",
+                    style: SibTextStyles.size_min_2_bold_colorPrimary),
+              ],
+            ),
+          )
+        : null;
 
     final sizeQuantitativeChildren = <Widget>[];
-    if(babyLenChild != null) {
+    if (babyLenChild != null) {
       sizeQuantitativeChildren.add(babyLenChild);
     }
-    if(babyWeightChild != null) {
+    if (babyWeightChild != null) {
       sizeQuantitativeChildren.add(babyWeightChild);
     }
-    if(sizeQuantitativeChildren.length == 2) {
-      sizeQuantitativeChildren.insert(1, SizedBox(width: 15,),);
+    if (sizeQuantitativeChildren.length == 2) {
+      sizeQuantitativeChildren.insert(
+        1,
+        SizedBox(
+          width: 15,
+        ),
+      );
     }
     final sizeQuantitativeRow = sizeQuantitativeChildren.isNotEmpty
-        ? Row(children: sizeQuantitativeChildren,) : null;
+        ? Row(
+            children: sizeQuantitativeChildren,
+          )
+        : null;
 
     final colChildren = <Widget>[
       Row(
         children: [
           imgChild,
-          Container(width: 10,),
+          Container(
+            width: 10,
+          ),
           descChild,
         ],
       ),
-      Container(height: 10,),
+      Container(
+        height: 10,
+      ),
     ];
-    if(sizeQuantitativeRow != null) {
+    if (sizeQuantitativeRow != null) {
       colChildren.add(sizeQuantitativeRow);
     }
 
@@ -430,7 +467,6 @@ class ItemMotherBabySizeOverview extends StatelessWidget {
   }
 }
 
-
 class BabyOverlayControlBtn extends StatelessWidget {
   final String text;
   final MutableLiveData<bool> visibilityController;
@@ -441,14 +477,18 @@ class BabyOverlayControlBtn extends StatelessWidget {
     required this.visibilityController,
     this.onClick,
     Key? key,
-  }): super(key: key,);
+  }) : super(
+          key: key,
+        );
 
   @override
   Widget build(BuildContext context) {
     return LiveDataObserver<bool>(
       liveData: visibilityController,
       builder: (ctx, vis) => Container(
-        margin: EdgeInsets.only(bottom: 10,),
+        margin: EdgeInsets.only(
+          bottom: 10,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -460,8 +500,14 @@ class BabyOverlayControlBtn extends StatelessWidget {
                 onClick?.call(visibilityController.value == true);
               },
               suffix: vis == true
-                  ? Icon(Icons.keyboard_arrow_up_rounded, color: white,)
-                  : Icon(Icons.keyboard_arrow_down_rounded, color: white,),
+                  ? Icon(
+                      Icons.keyboard_arrow_up_rounded,
+                      color: white,
+                    )
+                  : Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: white,
+                    ),
             ),
           ],
         ),
@@ -477,6 +523,7 @@ class BabySelectionOverlay extends StatelessWidget {
   final void Function()? onCancel;
   final void Function(BabyOverlayData, bool isBorn)? onItemClick;
   final void Function(bool isBorn)? onAddItemClick;
+
   /// For all born and unborn baby.
   final LiveData<int>? selectedIndex;
   final bool isSelectedIndexOwner;
@@ -490,7 +537,7 @@ class BabySelectionOverlay extends StatelessWidget {
     this.onAddItemClick,
     this.selectedIndex,
     bool? isSelectedIndexOwner,
-  }): isSelectedIndexOwner = isSelectedIndexOwner ?? selectedIndex == null;
+  }) : isSelectedIndexOwner = isSelectedIndexOwner ?? selectedIndex == null;
 
   @override
   Widget build(BuildContext context) {
@@ -499,22 +546,24 @@ class BabySelectionOverlay extends StatelessWidget {
         visibilityController: visibilityController,
         onCancel: onCancel,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10,),
+          padding: EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
           child: MultiLiveDataObserver<List<BabyOverlayData>>(
             //key: key,
             liveDataList: [unbornBabyList, bornBabyList],
             builder: (ctx, lists) => !lists.any((e) => e == null)
                 ? ChildrenListOverlay(
-                  isSelectedIndexOwner: isSelectedIndexOwner,
-                  selectedIndex: selectedIndex,
-                  unbornBabyList: lists[0]!,
-                  bornBabyList: lists[1]!,
-                  onItemClick: onItemClick,
-                  onAddItemClick: onAddItemClick,
-                ) : defaultLoading(height: double.infinity),
+                    isSelectedIndexOwner: isSelectedIndexOwner,
+                    selectedIndex: selectedIndex,
+                    unbornBabyList: lists[0]!,
+                    bornBabyList: lists[1]!,
+                    onItemClick: onItemClick,
+                    onAddItemClick: onAddItemClick,
+                  )
+                : defaultLoading(height: double.infinity),
           ),
-        )
-    );
+        ));
   }
 }
 
