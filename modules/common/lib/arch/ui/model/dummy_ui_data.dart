@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'home_graph_menu.dart';
 
-const ic_gender = IconData(0x26A4, fontFamily: 'MaterialIcons');
+const ic_gender = IconData(0x26A4, fontFamily: 'NotoSymbols');
 
 final motherHomeGraph_ui = <HomeGraphMenu>[
   HomeGraphMenu(name: 'Grafik Evaluasi Kehamilan', img: dummyImg,),

@@ -84,19 +84,19 @@ _menuBtnNavTest() {
       expect(find.byType(BabyHomePage), findsOneWidget);
     });
 
-    testWidgets("Given home page, "
-        "When 'covid-19' menu button is pressed, "
-        "Then `covid-19_home_page` is shown.",
-    (tester) async {
-      await _setUpHomePage(tester);
-
-      final btn = find.byKey(HomeKeys.home_btnMenu_covid).first;
-      await tester.tap(btn);
-
-      await tester.pumpAndSettle();
-
-      expect(find.byType(CovidHomePage), findsOneWidget);
-    });
+    // testWidgets("Given home page, "
+    //     "When 'covid-19' menu button is pressed, "
+    //     "Then `covid-19_home_page` is shown.",
+    // (tester) async {
+    //   await _setUpHomePage(tester);
+    //
+    //   final btn = find.byKey(HomeKeys.home_btnMenu_covid).first;
+    //   await tester.tap(btn);
+    //
+    //   await tester.pumpAndSettle();
+    //
+    //   expect(find.byType(CovidHomePage), findsOneWidget);
+    // });
   });
 }
 

@@ -119,6 +119,9 @@ flutter:
         - asset: assets/fonts/FiraCode-Regular.ttf
         - asset: assets/fonts/FiraCode-Bold.ttf
           weight: 500
+    - family: NotoSymbols
+      fonts:
+        - asset: assets/fonts/NotoSansSymbols-Regular.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

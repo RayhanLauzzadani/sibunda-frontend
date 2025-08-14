@@ -231,7 +231,7 @@ class _MenuList extends StatelessWidget {
   final keyList = <Key>[
     HomeKeys.home_btnMenu_pregnancy,
     HomeKeys.home_btnMenu_baby,
-    HomeKeys.home_btnMenu_covid,
+    // HomeKeys.home_btnMenu_covid,
   ];
 
   _MenuList(this.dataList);

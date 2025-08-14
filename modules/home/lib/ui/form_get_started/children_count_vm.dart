@@ -22,7 +22,7 @@ class ChildrenCountVm extends AsyncVm {
   final MutableLiveData<bool> _canProceed = MutableLiveData();
   final MutableLiveData<bool> _onSubmit = MutableLiveData();
   //final MutableLiveData<DateTime> lastChildBirthDate = MutableLiveData();
-  final MutableLiveData<int> childrenCount = MutableLiveData();
+  final MutableLiveData<int> childrenCount = MutableLiveData(0);
 
   LiveData<bool> get canProceed => _canProceed;
   LiveData<bool> get onSubmit => _onSubmit;
@@ -43,8 +43,11 @@ class ChildrenCountVm extends AsyncVm {
  */
     childrenCount.observe(this, (count) {
       _canProceed.value =
-          count != null && count >= 1; //&& lastChildBirthDate.value != null;
+          count != null && count >= 0; //&& lastChildBirthDate.value != null;
     });
+    if(childrenCount.value != null) {
+      childrenCount.notifyObservers();
+    }
   }
 
   void proceed() {

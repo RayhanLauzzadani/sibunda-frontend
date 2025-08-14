@@ -494,7 +494,10 @@ Future<IdStringModel?> showGenderSelectionPopup({
   context: context,
   title: Strings.select_gender,
   showId: false,
-  dataSrc: () async => genderSelectionList,
+  dataSrc: () async => [
+    IdStringModel(id: 0, name: "-"),
+    ...genderSelectionList,
+  ],
 );
 
 Future<IdStringModel?> showBloodTypeSelectionPopup({

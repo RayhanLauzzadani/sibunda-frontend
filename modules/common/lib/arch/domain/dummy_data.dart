@@ -39,6 +39,7 @@ final idStringList = List<IdStringModel>.generate(20, (index) => IdStringModel(
 ));
 
 final genderSelectionList = <IdStringModel>[
+  IdStringModel(id: 0, name: "-"),
   IdStringModel(id: 1, name: Strings.male),
   IdStringModel(id: 2, name: Strings.female),
 ];
@@ -337,9 +338,9 @@ final dummyMenuList = <HomeMenu>[
   HomeMenu(name: Strings.my_baby, moduleName: GlobalRoutes.bayiku,
     img: ImgData(link: "menu_bayiku.png", package: GlobalRoutes.common, src: ImgSrc.asset,),
   ),
-  HomeMenu(name: Strings.covid_19, moduleName: GlobalRoutes.covid19,
-    img: ImgData(link: "menu_covid19.png", package: GlobalRoutes.common, src: ImgSrc.asset,),
-  ),
+  // HomeMenu(name: Strings.covid_19, moduleName: GlobalRoutes.covid19,
+  //   img: ImgData(link: "menu_covid19.png", package: GlobalRoutes.common, src: ImgSrc.asset,),
+  // ),
 ];
 
 final dummyTipsList = <Tips>[

@@ -200,6 +200,7 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
     Const.KEY_HPL,
 
     Const.KEY_WEEK,
+    Const.KEY_BABY_GENDER,
     Const.KEY_WEIGHT,
     Const.KEY_WEIGHT_DIFF,
     Const.KEY_HEIGHT,
@@ -229,6 +230,11 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
       case Const.KEY_SYSTOLIC_PRESSURE:
       case Const.KEY_DIASTOLIC_PRESSURE:
       case Const.KEY_MAP: return parseNum(response);
+
+      case Const.KEY_BABY_GENDER:
+        final str = response?.toString() ?? "";
+        // Map '-' (unknown) to empty string so backend can accept it
+        return str.trim() == '-' ? "" : str;
     }
     return super.mapResponse(groupPosition, key, response);
   }
