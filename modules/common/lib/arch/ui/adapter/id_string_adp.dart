@@ -43,16 +43,21 @@ class _IdStringListViewState
     required this.searchTxtControl,
     required this.onItemClick,
     required this.showId,
-  }): _usedDataList = List.unmodifiable(dataList) {
+  }): _usedDataList = List.unmodifiable(
+    dataList.where((e) => e.name.trim() != '-' && e.name.trim().isNotEmpty).toList(),
+  ) {
     onSearchChange = () {
-      //prind("IdStringAdp.listen() searchTxtControl.text = ${searchTxtControl.text}");
       if(isActive) {
         final keyword = searchTxtControl.text;
         if(keyword.isNotEmpty) {
-          _usedDataList = dataList.where((e) => e.name.toLowerCase().contains(keyword.toLowerCase()))
+          _usedDataList = dataList
+              .where((e) => e.name.toLowerCase().contains(keyword.toLowerCase()))
+              .where((e) => e.name.trim() != '-' && e.name.trim().isNotEmpty)
               .toList(growable: false);
         } else {
-          _usedDataList = List.unmodifiable(dataList);
+          _usedDataList = List.unmodifiable(
+            dataList.where((e) => e.name.trim() != '-' && e.name.trim().isNotEmpty).toList(),
+          );
         }
         setState(() {});
       }

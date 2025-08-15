@@ -40,20 +40,20 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
     required GetPregnancyBabySize getPregnancyBabySize,
     required GetPregnancyCheckForm getPregnancyCheckForm,
     required IsBabyBorn isBabyBorn,
-  }):
-    //_getMotherNik = getMotherNik,
-    //_getCurrentMotherHpl = getCurrentMotherHpl,
-    //_getCurrentMotherHpht = getCurrentMotherHpht,
-    _getMotherHpl = getMotherHpl,
-    _getPregnancyCheckUpId = getPregnancyCheckUpId,
-    _savePregnancyCheck = savePregnancyCheck,
-    _saveUsgImg = saveUsgImg,
-    _getPregnancyCheck = getPregnancyCheck,
-    _getMotherFormWarningStatus = getMotherFormWarningStatus,
-    _getPregnancyBabySize = getPregnancyBabySize,
-    _getPregnancyCheckForm = getPregnancyCheckForm,
-    _isBabyBornUseCase = isBabyBorn, super(context: context) {
-
+  })  :
+        //_getMotherNik = getMotherNik,
+        //_getCurrentMotherHpl = getCurrentMotherHpl,
+        //_getCurrentMotherHpht = getCurrentMotherHpht,
+        _getMotherHpl = getMotherHpl,
+        _getPregnancyCheckUpId = getPregnancyCheckUpId,
+        _savePregnancyCheck = savePregnancyCheck,
+        _saveUsgImg = saveUsgImg,
+        _getPregnancyCheck = getPregnancyCheck,
+        _getMotherFormWarningStatus = getMotherFormWarningStatus,
+        _getPregnancyBabySize = getPregnancyBabySize,
+        _getPregnancyCheckForm = getPregnancyCheckForm,
+        _isBabyBornUseCase = isBabyBorn,
+        super(context: context) {
     _currentWeek.observe(this, (week) {
       prind("_currentWeek.observe week = $week");
       setResponse(0, Const.KEY_WEEK, week);
@@ -63,16 +63,16 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
       setFormEnabled(isEnabled: isBorn != true);
     }, tag: toString());
     onSubmit.observe(this, (success) {
-      if(success is Success<String>) {
+      if (success is Success<String>) {
         setFormEnabled(isEnabled: false);
       }
     }, tag: toString());
     _pregnancyCheck.observe(this, (data) {
-      if(data != null) {
+      if (data != null) {
         final map = data.toJson();
         final usgUrl = map[Const.KEY_IMG_USG];
         prind("KehamilankuCheckFormVm usgUrl= $usgUrl");
-        if(usgUrl is String) {
+        if (usgUrl is String) {
           map[Const.KEY_IMG_USG] = ImgData(
             link: usgUrl,
             src: ImgData.getSrcFromLink(usgUrl),
@@ -93,10 +93,11 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
     }, tag: toString());
     _pregnancyBabySize.observe(this, (data) {
       _isBabySizeInit.value = true;
-      prind("PregnFormVm _pregnancyBabySize.observe data= $data _isBabySizeInit= $_isBabySizeInit");
+      prind(
+          "PregnFormVm _pregnancyBabySize.observe data= $data _isBabySizeInit= $_isBabySizeInit");
     }, tag: toString());
     isFormReady.observe(this, (isReady) {
-      if(isReady == true) {
+      if (isReady == true) {
         //prind("Trimester VM isFormReady.observe isReady= $isReady");
         setFieldValidity(0, Const.KEY_IMG_USG, true);
         //prind("Trimester VM _responseGroupList[group][key]!.isValid = ${responseGroupList[0][Const.KEY_IMG_USG]!.isValid}");
@@ -121,12 +122,15 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
   //final GetCurrentMotherHpht _getCurrentMotherHpht;
 
   final MutableLiveData<PregnancyCheck> _pregnancyCheck = MutableLiveData();
-  final MutableLiveData<List<FormWarningStatus>> _formWarningStatusList = MutableLiveData();
-  final MutableLiveData<PregnancyBabySize> _pregnancyBabySize = MutableLiveData();
+  final MutableLiveData<List<FormWarningStatus>> _formWarningStatusList =
+      MutableLiveData();
+  final MutableLiveData<PregnancyBabySize> _pregnancyBabySize =
+      MutableLiveData();
   final MutableLiveData<bool> _isBabyBorn = MutableLiveData();
 
   LiveData<PregnancyCheck> get pregnancyCheck => _pregnancyCheck;
-  LiveData<List<FormWarningStatus>> get formWarningStatusList => _formWarningStatusList;
+  LiveData<List<FormWarningStatus>> get formWarningStatusList =>
+      _formWarningStatusList;
   LiveData<PregnancyBabySize> get pregnancyBabySize => _pregnancyBabySize;
   LiveData<bool> get isBabyBorn => _isBabyBorn;
 
@@ -140,17 +144,20 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
 
   @override
   List<LiveData> get liveDatas => [
-    _pregnancyCheck, _formWarningStatusList,
-    _pregnancyBabySize, _currentWeek, _isBabySizeInit,
-    _isBabyBorn,
-  ];
+        _pregnancyCheck,
+        _formWarningStatusList,
+        _pregnancyBabySize,
+        _currentWeek,
+        _isBabySizeInit,
+        _isBabyBorn,
+      ];
 
   void _lateInit() async {
     final hplRes = await _getMotherHpl(pregnancyId.id);
 
     prind("MotherCHeckFormVm._lateInit() hplRes= $hplRes");
 
-    if(hplRes is Success<DateTime>) {
+    if (hplRes is Success<DateTime>) {
       final hpl = hplRes.data;
       final hpht = getHpht(hpl);
 
@@ -170,17 +177,18 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
     final data = PregnancyCheck.fromJson(responseMap);
     //prind("KehamilankuCheckFormVm doSubmitJob() ==== data = ${data.toJson()}");
     //final motherNik = VarDi.motherNik.getOrElse();
-    final submitRes = await _savePregnancyCheck(pregnancyId.id, data, currentTrimesterId);
-    if(submitRes is Success<int>) {
+    final submitRes =
+        await _savePregnancyCheck(pregnancyId.id, data, currentTrimesterId);
+    if (submitRes is Success<int>) {
       final checkUpId = submitRes.data;
       prind("imgFile= $imgFile");
-      if(imgFile != null) {
+      if (imgFile != null) {
         final res2 = await _saveUsgImg(
           pregnancyId: pregnancyId.id,
           checkUpId: checkUpId,
           imgFile: imgFile,
         );
-        if(res2 is Success<File?>) {
+        if (res2 is Success<File?>) {
           return Success("ok");
         } else {
           return Fail(msg: "Can't submit USG img");
@@ -194,33 +202,33 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
 
   @override
   Set<String>? get mappedKey => {
-    Const.KEY_VISIT_DATE,
-    Const.KEY_FUTURE_VISIT_DATE,
-    Const.KEY_HPHT,
-    Const.KEY_HPL,
-
-    Const.KEY_WEEK,
-    Const.KEY_BABY_GENDER,
-    Const.KEY_WEIGHT,
-    Const.KEY_WEIGHT_DIFF,
-    Const.KEY_HEIGHT,
-    Const.KEY_BABY_MOVEMENT,
-    Const.KEY_TFU,
-    Const.KEY_DJJ,
-    Const.KEY_SYSTOLIC_PRESSURE,
-    Const.KEY_DIASTOLIC_PRESSURE,
-    Const.KEY_MAP,
-  };
+        Const.KEY_VISIT_DATE,
+        Const.KEY_FUTURE_VISIT_DATE,
+        Const.KEY_HPHT,
+        Const.KEY_HPL,
+        Const.KEY_WEEK,
+        Const.KEY_WEIGHT,
+        Const.KEY_WEIGHT_DIFF,
+        Const.KEY_HEIGHT,
+        Const.KEY_BABY_MOVEMENT,
+        Const.KEY_TFU,
+        Const.KEY_DJJ,
+        Const.KEY_SYSTOLIC_PRESSURE,
+        Const.KEY_DIASTOLIC_PRESSURE,
+        Const.KEY_MAP,
+      };
   @override
   mapResponse(int groupPosition, String key, response) {
-    switch(key) {
+    switch (key) {
       case Const.KEY_VISIT_DATE:
       case Const.KEY_FUTURE_VISIT_DATE:
       case Const.KEY_HPHT:
-      case Const.KEY_HPL: return response?.toString();
+      case Const.KEY_HPL:
+        return response?.toString();
 
       case Const.KEY_WEEK:
-      case Const.KEY_BABY_MOVEMENT: return parseInt(response);
+      case Const.KEY_BABY_MOVEMENT:
+        return parseInt(response);
 
       case Const.KEY_WEIGHT:
       case Const.KEY_WEIGHT_DIFF:
@@ -229,22 +237,20 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
       case Const.KEY_DJJ:
       case Const.KEY_SYSTOLIC_PRESSURE:
       case Const.KEY_DIASTOLIC_PRESSURE:
-      case Const.KEY_MAP: return parseNum(response);
-
-      case Const.KEY_BABY_GENDER:
-        final str = response?.toString() ?? "";
-        // Map '-' (unknown) to empty string so backend can accept it
-        return str.trim() == '-' ? "" : str;
+      case Const.KEY_MAP:
+        return parseNum(response);  
     }
     return super.mapResponse(groupPosition, key, response);
   }
 
   @override
-  Future<bool> validateField(int groupPosition, String inputKey, response) async {
+  Future<bool> validateField(
+      int groupPosition, String inputKey, response) async {
     //prind("PregTrimFormVm validateField() group=$groupPosition key=$inputKey resp=$response");
-    switch(inputKey) {
+    switch (inputKey) {
       case Const.KEY_WEEK:
-      case Const.KEY_BABY_MOVEMENT: return tryParseInt(response) != null;
+      case Const.KEY_BABY_MOVEMENT:
+        return tryParseInt(response) != null;
       case Const.KEY_WEIGHT:
       case Const.KEY_WEIGHT_DIFF:
       case Const.KEY_HEIGHT:
@@ -252,15 +258,17 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
       case Const.KEY_DJJ:
       case Const.KEY_SYSTOLIC_PRESSURE:
       case Const.KEY_DIASTOLIC_PRESSURE:
-      case Const.KEY_MAP: return tryParseNum(response) != null;
-      case Const.KEY_IMG_USG: return true; // this param is optional.
+      case Const.KEY_MAP:
+        return tryParseNum(response) != null;
+      case Const.KEY_IMG_USG:
+        return true; // this param is optional.
     }
     return super.validateField(groupPosition, inputKey, response);
   }
 
   @override
   String getResponseStringRepr(int groupPosition, String inputKey, response) {
-    if(response is DateTime) {
+    if (response is DateTime) {
       return syncFormatTime(response);
     }
     return super.getResponseStringRepr(groupPosition, inputKey, response);
@@ -268,7 +276,7 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
 
   @override
   String getInvalidMsg(String inputKey, response) {
-    switch(inputKey) {
+    switch (inputKey) {
       case Const.KEY_WEEK:
       case Const.KEY_WEIGHT:
       case Const.KEY_WEIGHT_DIFF:
@@ -277,9 +285,10 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
       case Const.KEY_DJJ:
       case Const.KEY_SYSTOLIC_PRESSURE:
       case Const.KEY_DIASTOLIC_PRESSURE:
-      case Const.KEY_MAP: return (response is String) && response.isNotEmpty == true
-        ? Strings.field_must_be_number
-        : Strings.field_can_not_be_empty;
+      case Const.KEY_MAP:
+        return (response is String) && response.isNotEmpty == true
+            ? Strings.field_must_be_number
+            : Strings.field_can_not_be_empty;
     }
     return super.getInvalidMsg(inputKey, response);
   }
@@ -287,18 +296,20 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
   @override
   Future<List<FormUiGroupData>> getFieldGroupList() async {
     final res = await _getPregnancyCheckForm();
-    if(res is Success<List<FormGroupData>>) {
+    if (res is Success<List<FormGroupData>>) {
       final data = res.data;
-      return data.map((e) => FormUiGroupData.fromModel(e)).toList(growable: false);
+      return data
+          .map((e) => FormUiGroupData.fromModel(e))
+          .toList(growable: false);
     } else {
       return List.empty();
     }
   }
 
-  void initVm({ bool forceLoad = false }) {
+  void initVm({bool forceLoad = false}) {
     init(isOneShot: !forceLoad);
     _isBabyBornUseCase(pregnancyId.id).then((res) {
-      if(res is Success<bool>) {
+      if (res is Success<bool>) {
         _isBabyBorn.value = res.data;
       } else {
         _isBabyBorn.value = false;
@@ -311,7 +322,7 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
     bool forceLoad = false,
   }) {
     //prind("KehamilankuCheckFormVm.initPage() week = $week forceLoad = $forceLoad _currentWeek.value = ${_currentWeek.value}");
-    if(!forceLoad && _currentWeek.value == week) return;
+    if (!forceLoad && _currentWeek.value == week) return;
     _currentWeek.value = week;
 
     _pregnancyCheck.value = null;
@@ -320,15 +331,18 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
     _isBabySizeInit.value = false;
 
     init(isOneShot: false);
-    isFormReady.observeOnce((isReady) {
-      if(isReady == true) {
-        getPregnancyCheck(week: week, forceLoad: true);
-        getMotherFormWarningStatus(week: week, forceLoad: true);
-        getPregnancyBabySize(week: week, forceLoad: true);
-        _lateInit();
-        _currentWeek.notifyObservers();
-      }
-    }, immediatelyGet: false,);
+    isFormReady.observeOnce(
+      (isReady) {
+        if (isReady == true) {
+          getPregnancyCheck(week: week, forceLoad: true);
+          getMotherFormWarningStatus(week: week, forceLoad: true);
+          getPregnancyBabySize(week: week, forceLoad: true);
+          _lateInit();
+          _currentWeek.notifyObservers();
+        }
+      },
+      immediatelyGet: false,
+    );
     //prind("KehamilankuCheckFormVm.initPage() AKHIR!!! week = $week forceLoad = $forceLoad _currentWeek.value = ${_currentWeek.value}");
   }
 
@@ -337,7 +351,7 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
     required int week,
     bool forceLoad = false,
   }) {
-    if(!forceLoad && _pregnancyCheck.value != null) return;
+    if (!forceLoad && _pregnancyCheck.value != null) return;
     startJob(getPregnancyCheckKey, (isActive) async {
       //final motherNik = VarDi.motherNik.getOrElse();
       //final res = await _getPregnancyCheckUpId(pregnancyId.id, week);
@@ -350,8 +364,9 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
         week: week,
       );
       _getPregnancyCheck(checkUpWeek).then((value) {
-        prind("getPregnancyCheck() _getPregnancyCheck() value= $value checkUpWeek= $checkUpWeek");
-        if(value is Success<PregnancyCheck>) {
+        prind(
+            "getPregnancyCheck() _getPregnancyCheck() value= $value checkUpWeek= $checkUpWeek");
+        if (value is Success<PregnancyCheck>) {
           final data = value.data;
           _pregnancyCheck.value = data;
         } else {
@@ -360,12 +375,13 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
       });
     });
   }
+
   void getMotherFormWarningStatus({
     //required String motherNik,
     required int week,
     bool forceLoad = false,
   }) {
-    if(!forceLoad && _formWarningStatusList.value != null) return;
+    if (!forceLoad && _formWarningStatusList.value != null) return;
     startJob(getMotherFormWarningStatusKey, (isActive) async {
       final checkUpWeek = PregnancyCheckUpWeek(
         pregnancyId: pregnancyId.id,
@@ -373,7 +389,7 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
         week: week,
       );
       _getMotherFormWarningStatus(checkUpWeek).then((value) {
-        if(value is Success<List<FormWarningStatus>>) {
+        if (value is Success<List<FormWarningStatus>>) {
           final data = value.data;
           _formWarningStatusList.value = data;
         } else {
@@ -382,11 +398,12 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
       });
     });
   }
+
   void getPregnancyBabySize({
     required int week,
     bool forceLoad = false,
   }) {
-    if(!forceLoad && _pregnancyBabySize.value != null) return;
+    if (!forceLoad && _pregnancyBabySize.value != null) return;
     startJob(getPregnancyBabySizeKey, (isActive) async {
       final checkUpWeek = PregnancyCheckUpWeek(
         pregnancyId: pregnancyId.id,
@@ -394,9 +411,11 @@ class KehamilankuCheckFormVm extends FormAuthVmGroup {
         week: week,
       );
       final res = await _getPregnancyBabySize(checkUpWeek);
-      prind("KehamilankuCheckFormVm.getPregnancyBabySize() _getPregnancyBabySize(checkUpId).then week = $week res= $res");
-      if(res is Success<PregnancyBabySize?>) {
-        prind("KehamilankuCheckFormVm.getPregnancyBabySize() MASUK _getPregnancyBabySize(checkUpId).then week = $week res= $res");
+      prind(
+          "KehamilankuCheckFormVm.getPregnancyBabySize() _getPregnancyBabySize(checkUpId).then week = $week res= $res");
+      if (res is Success<PregnancyBabySize?>) {
+        prind(
+            "KehamilankuCheckFormVm.getPregnancyBabySize() MASUK _getPregnancyBabySize(checkUpId).then week = $week res= $res");
         final data = res.data;
         _pregnancyBabySize.value = data;
       } else {
